@@ -36,13 +36,12 @@ const RentForm = () => {
     const { name, value } = e.target;
     
     if (name === 'City') {
-      // When city changes, update the localities and reset the Area Locality field
       const localities = localityOptionsByCity[value] || [];
       setCurrentLocalities(localities);
       setFormData({
         ...formData,
         City: value,
-        'Area Locality': '' // Reset locality when city changes
+        'Area Locality': '' 
       });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -53,7 +52,7 @@ const RentForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/predict', formData);
+      const res = await axios.post('https://hussainalirazv.pythonanywhere.com/', formData);
       setPrediction(res.data.predicted_rent);
     } catch (error) {
       console.error('Prediction failed:', error);
